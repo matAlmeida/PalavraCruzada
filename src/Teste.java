@@ -16,12 +16,19 @@ public class Teste {
     public static void main(String[] args) throws IOException
     {
 
-        DicPalavras dicionario = new DicPalavras();
+//        
+//        Palavras dicionario = new Palavras();
+//        
+//        //System.out.println(dicionario.getTamArq());
+//        
+//        String [][] palavras = dicionario.escolhePalavras(dicionario.sorteiaPalavra());
+//        
+//        for(int i = 0; i <= palavras[0][1].length(); i++)
+//            System.out.println(Integer.parseInt(palavras[i][2]) + " " + palavras[i][0] + ": " + palavras[i][1]);
         
-        String [][] palavras = dicionario.escolhePalavras(dicionario.sorteiaPalavra());
         
-        for(int i = 0; i <= palavras[0][1].length(); i++)
-            System.out.println(Integer.parseInt(palavras[i][2])+1 + " " + palavras[i][0] + ": " + palavras[i][1]);
+        
+        PalavrasCruzadas pal = new PalavrasCruzadas();
         
     }
     

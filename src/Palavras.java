@@ -16,7 +16,7 @@ import java.util.logging.Logger;
  *
  * @author mat
  */
-public class DicPalavras {
+public class Palavras {
     private static final String nomeArq = "dicionarioPalCruz.txt";
     private int tamArq = 0;
     private String[] linha = null;
@@ -25,7 +25,7 @@ public class DicPalavras {
      * Copia o dicionario de palavras para um vetor
      * 
      */
-    public DicPalavras()
+    public Palavras()
     {
         FileReader arquivo1 = null;          
         try {
@@ -51,9 +51,9 @@ public class DicPalavras {
             buffer.close();
             arquivo.close();
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(DicPalavras.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Palavras.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
-            Logger.getLogger(DicPalavras.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Palavras.class.getName()).log(Level.SEVERE, null, ex);
         }
         
     }

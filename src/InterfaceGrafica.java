@@ -20,44 +20,62 @@ public class InterfaceGrafica extends javax.swing.JFrame {
      * Creates new form InterfaceGrafica
      */
     
+    char[][] cWordsM;
+    String[][] palavras;
     JTextField[][] campo; // Campo de quadrados
     JLabel[] idxDica;
     
     public InterfaceGrafica() {
         initComponents();
         
-        DicPalavras dicionario = new DicPalavras();
-        String [][] palavras = dicionario.escolhePalavras(dicionario.sorteiaPalavra());// SORTEIA TRONCO E PALAVRAS SECUNDARIAS
-        int altura = palavras[0][1].length();
-        int largura = 0;
+        PalavrasCruzadas cWords = new PalavrasCruzadas();
+        cWordsM = cWords.getCruzada();
+        palavras = cWords.getPalavras();
         
-        for(int i = 0; i < altura; i++)
-            if(palavras[i][1].length() > largura)
-                largura = palavras[i][1].length();
-        campo = new JTextField[altura+1][largura];
+        int altura = cWords.getAltura();
+        int largura = cWords.getLargura();
+        int distCentro = cWords.getDistCentro()+1;
+        int[] qntEsq = cWords.getQntEsq();
+        
+        campo = new JTextField[altura][largura];
         idxDica = new JLabel[altura+1];
         
-        for(int i = 0, h = 10; i <= altura; i++, h += 40)
+        for(int i = 0; i < altura+1; i++)
         {
+            System.out.println(i + ": " + palavras[i][1]);
+            
+            if(i == 0)
+            {
                 idxDica[i] = new JLabel();
-                idxDica[i].setLocation(10, h);
+                idxDica[i].setLocation((40*distCentro)-20, 10);
                 idxDica[i].setText(Integer.toString(i));
                 idxDica[i].setVisible(true);
-                idxDica[i].setSize(150, 30);
+                idxDica[i].setSize(30, 30);
                 idxDica[i].setToolTipText(palavras[i][0]);
                 this.add(idxDica[i]);
-                
-            System.out.println(palavras[i][2] + " " + palavras[i][0] + ": " + palavras[i][1]);
-            for(int j = 0, w = 10; j < palavras[i][1].length(); j++, w += 40)
+            }
+            else
             {
-                campo[i][j] = new JTextField();
-                campo[i][j].setLocation(w+25, h);
-                campo[i][j].setVisible(true);
-                campo[i][j].setSize(30, 30);
-                this.add(campo[i][j]);
+                idxDica[i] = new JLabel();
+                idxDica[i].setLocation(((qntEsq[i-1]+1)*40), 40*i);
+                idxDica[i].setText(Integer.toString(i));
+                idxDica[i].setVisible(true);
+                idxDica[i].setSize(30, 30);
+                idxDica[i].setToolTipText(palavras[i][0]);
+                this.add(idxDica[i]);
             }
         }
         
+        for(int i = 0, h = 40; i < altura; i++, h += 40)
+            for(int j = 0, w = 10; j < largura; j++, w += 40)
+                if(cWordsM[i][j] != '0')
+                {
+                    campo[i][j] = new JTextField();
+                    campo[i][j].setLocation(w, h);
+                    campo[i][j].setVisible(true);
+                    campo[i][j].setSize(30, 30);
+                    this.add(campo[i][j]);
+                }
     }
 
     /**
