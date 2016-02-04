@@ -1,9 +1,14 @@
 
+import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -38,10 +43,33 @@ public class GUI_Menu extends javax.swing.JFrame {
         novoJogo.setVisible(true);
         this.add(novoJogo);
         
+        if(nomeJ[0].getText().equals(""))
+            novoJogo.setEnabled(false);
+        
+        novoJogo.addActionListener(new java.awt.event.ActionListener() {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent e) {
+                startGame();
+            }
+        });
         
     }
 
-    public void setName()
+    private void startGame()
+    {
+        if(tipo[0].isSelected())
+        {
+            GUI_Partida partida = new GUI_Partida(nomeJ[0].getText(), nomeJ[1].getText());
+            partida.setVisible(true);
+        }
+        if(tipo[1].isSelected())
+        {
+            GUI_Partida partida = new GUI_Partida(nomeJ[0].getText(), nomeJ[1].getText());
+            partida.setVisible(true);
+        }
+    }
+    
+    private void setName()
     {
         JLabel jogador1 = new JLabel("Jogador 1");
         JLabel jogador2 = new JLabel("Jogador 2");
@@ -69,9 +97,32 @@ public class GUI_Menu extends javax.swing.JFrame {
         nomeJ[1].setSize(200, 30);
         nomeJ[1].setVisible(true);
         this.add(nomeJ[1]);
+        
+        nomeJ[0].getDocument().addDocumentListener(new DocumentListener() {
+
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                if(!nomeJ[0].getText().equals(""))
+                    novoJogo.setEnabled(true);
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                if(!nomeJ[0].getText().equals(""))
+                    novoJogo.setEnabled(true);
+                else
+                    novoJogo.setEnabled(false);
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                if(!nomeJ[0].getText().equals(""))
+                    novoJogo.setEnabled(true);
+            }
+        });
     }
     
-    public void setType()
+    private void setType()
     {
         JLabel txtTipo1 = new JLabel("Contra Jogador");
         JLabel txtTipo2 = new JLabel("Contra Computador");
@@ -104,6 +155,28 @@ public class GUI_Menu extends javax.swing.JFrame {
         ButtonGroup gTipo = new ButtonGroup();
         gTipo.add(tipo[0]);
         gTipo.add(tipo[1]);
+        
+        tipo[1].addActionListener(new java.awt.event.ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) 
+            {
+                nomeJ[1].setText("Computador");
+                nomeJ[1].setBackground(Color.LIGHT_GRAY);
+                nomeJ[1].setEditable(false);
+            }
+        });
+        
+        tipo[0].addActionListener(new java.awt.event.ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) 
+            {
+                nomeJ[1].setText("");
+                nomeJ[1].setBackground(Color.white);
+                nomeJ[1].setEditable(true);
+            }
+        });
     }
     
     /**

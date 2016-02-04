@@ -27,6 +27,7 @@ public class GUI_Partida extends javax.swing.JFrame {
      * Creates new form InterfaceGrafica
      */
     
+    PalavrasCruzadas cWords;
     char[][] cWordsM;
     String[][] palavras;
     JTextField[][] campo; // Campo de quadrados
@@ -36,16 +37,24 @@ public class GUI_Partida extends javax.swing.JFrame {
     double width;
     double height;
     
-    public GUI_Partida() {
+    public GUI_Partida(String player1, String player2) {
         initComponents();
         setFullScreen();
-        this.setTitle("Partida");
+        this.setTitle(player1 + " X " + player2);
         
-        createBlocks();
+        cWords = new PalavrasCruzadas();
+        this.cWordsM = cWords.getCruzada();
+        this.palavras = cWords.getPalavras();
+        
+        int altura = cWords.getAltura();
+        int largura = cWords.getLargura();
+        
+        createTextBoxArea(altura, largura);
+        createTips(altura, largura);
         
     }
 
-    public void setFullScreen()
+    private void setFullScreen()
     {
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         this.width = screenSize.getWidth();
@@ -53,18 +62,29 @@ public class GUI_Partida extends javax.swing.JFrame {
         this.setSize((int)(long)Math.floor(width), (int)(long)Math.floor(height));
     }
     
-    public void createBlocks()
+    private void createTextBoxArea(int altura, int largura)
     {
-        PalavrasCruzadas cWords = new PalavrasCruzadas();
-        this.cWordsM = cWords.getCruzada();
-        this.palavras = cWords.getPalavras();
+        campo = new JTextField[altura][largura];
         
-        int altura = cWords.getAltura();
-        int largura = cWords.getLargura();
+        
+        
+        for(int i = 0, h = 40; i < altura; i++, h += 40)
+            for(int j = 0, w = 10; j < largura; j++, w += 40)
+                if(cWordsM[i][j] != '0')
+                {
+                    campo[i][j] = new JTextField();
+                    campo[i][j].setLocation(w, h);
+                    campo[i][j].setVisible(true);
+                    campo[i][j].setSize(30, 30);
+                    this.add(campo[i][j]);
+                }
+    }
+    
+    private void createTips(int altura, int largura)
+    {
         int distCentro = cWords.getDistCentro()+1;
         int[] qntEsq = cWords.getQntEsq();
         
-        campo = new JTextField[altura][largura];
         idDica = new JLabel[altura+1];
         
         for(int i = 0; i < altura+1; i++)
@@ -94,17 +114,6 @@ public class GUI_Partida extends javax.swing.JFrame {
                 this.add(idDica[i]);
             }
         }
-        
-        for(int i = 0, h = 40; i < altura; i++, h += 40)
-            for(int j = 0, w = 10; j < largura; j++, w += 40)
-                if(cWordsM[i][j] != '0')
-                {
-                    campo[i][j] = new JTextField();
-                    campo[i][j].setLocation(w, h);
-                    campo[i][j].setVisible(true);
-                    campo[i][j].setSize(30, 30);
-                    this.add(campo[i][j]);
-                }
     }
     
     /**
@@ -164,7 +173,7 @@ public class GUI_Partida extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new GUI_Partida().setVisible(true);
+                new GUI_Partida("", "").setVisible(true);
             }
         });
     }
