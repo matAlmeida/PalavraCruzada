@@ -1,3 +1,6 @@
+
+import javax.swing.JTextField;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -54,7 +57,7 @@ public class PalavrasCruzadas {
         
         for(int i = 0; i < altura; i++)
         {
-            letras = palavras[i+1][1].toCharArray();
+            letras = palavras[i+1][1].toLowerCase().toCharArray();
             for(int j = 0; j < largura; j++){
                 
                 if(palavras[i+1][3].equals("0") && (j-qntEsq[i]-1) == 0)
@@ -100,4 +103,29 @@ public class PalavrasCruzadas {
     {
         return qntEsq;
     }
+    
+    public boolean confere(String[] coord, String c)
+    {
+        int i = Integer.parseInt(coord[0]);
+        int j = Integer.parseInt(coord[1]);
+        
+        return c.charAt(0) == palavrasCruzadas[i][j];
+    }
+    
+//    public boolean confere(JTextField campo)
+//    {
+//        
+//        System.out.println(campo.getText());
+//        System.out.println(campo.getName());
+//        System.out.println(campo.getName().split(":")[0]);
+//        System.out.println(campo.getName().split(":")[1]);
+//        String[] coord = campo.getName().split(":");
+//        int i = Integer.parseInt(campo.getName().split(":")[0]);
+//        int j = Integer.parseInt(campo.getName().split(":")[1]);
+//        
+//        String letra = campo.getText();
+//        System.out.println(letra);
+//        
+//        return letra.toCharArray()[0] == palavrasCruzadas[i][j];
+//    }
 }

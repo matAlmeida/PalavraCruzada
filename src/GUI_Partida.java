@@ -3,12 +3,15 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Toolkit;
+import java.awt.event.KeyEvent;
 import javafx.scene.layout.Border;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import static oracle.jrockit.jfr.events.Bits.intValue;
 
 /*
@@ -31,6 +34,7 @@ public class GUI_Partida extends javax.swing.JFrame {
     char[][] cWordsM;
     String[][] palavras;
     JTextField[][] campo; // Campo de quadrados
+    String [][] coordinates;
     JLabel[] idDica;
     JLabel[] lbDicas;
     JLabel boxDicas;
@@ -76,8 +80,38 @@ public class GUI_Partida extends javax.swing.JFrame {
                     campo[i][j].setLocation(w, h);
                     campo[i][j].setVisible(true);
                     campo[i][j].setSize(30, 30);
+                    campo[i][j].setName(i + ":" + j);
                     this.add(campo[i][j]);
+                    
+                    checa(campo[i][j]);
+                    
                 }
+    }
+    
+    private void checa(JTextField campinho)
+    {
+        campinho.getDocument().addDocumentListener(new DocumentListener() {
+                        
+                        @Override
+                        public void insertUpdate(DocumentEvent e) 
+                        {
+                            if(cWords.confere(campinho.getName().split(":"), campinho.getText().toLowerCase()))
+                            {
+                                campinho.setEnabled(false);
+                                campinho.setBackground(Color.GREEN);
+                            }
+                        }
+
+                        @Override
+                        public void removeUpdate(DocumentEvent e) 
+                        {
+                        }
+
+                        @Override
+                        public void changedUpdate(DocumentEvent e) 
+                        {
+                        }
+                    });
     }
     
     private void createTips(int altura, int largura)
