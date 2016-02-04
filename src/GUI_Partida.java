@@ -1,8 +1,15 @@
 
 import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.Toolkit;
+import javafx.scene.layout.Border;
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+import static oracle.jrockit.jfr.events.Bits.intValue;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -14,7 +21,7 @@ import javax.swing.JTextField;
  *
  * @author mat
  */
-public class InterfaceGrafica extends javax.swing.JFrame {
+public class GUI_Partida extends javax.swing.JFrame {
 
     /**
      * Creates new form InterfaceGrafica
@@ -23,14 +30,20 @@ public class InterfaceGrafica extends javax.swing.JFrame {
     char[][] cWordsM;
     String[][] palavras;
     JTextField[][] campo; // Campo de quadrados
-    JLabel[] idxDica;
+    JLabel[] idDica;
+    JLabel[] lbDicas;
+    JLabel boxDicas;
+    double width;
+    double height;
     
-    public InterfaceGrafica() {
+    public GUI_Partida() {
         initComponents();
+        setFullScreen();
+        this.setTitle("Partida");
         
         PalavrasCruzadas cWords = new PalavrasCruzadas();
-        cWordsM = cWords.getCruzada();
-        palavras = cWords.getPalavras();
+        this.cWordsM = cWords.getCruzada();
+        this.palavras = cWords.getPalavras();
         
         int altura = cWords.getAltura();
         int largura = cWords.getLargura();
@@ -38,7 +51,7 @@ public class InterfaceGrafica extends javax.swing.JFrame {
         int[] qntEsq = cWords.getQntEsq();
         
         campo = new JTextField[altura][largura];
-        idxDica = new JLabel[altura+1];
+        idDica = new JLabel[altura+1];
         
         for(int i = 0; i < altura+1; i++)
         {
@@ -46,23 +59,25 @@ public class InterfaceGrafica extends javax.swing.JFrame {
             
             if(i == 0)
             {
-                idxDica[i] = new JLabel();
-                idxDica[i].setLocation((40*distCentro)-20, 10);
-                idxDica[i].setText(Integer.toString(i));
-                idxDica[i].setVisible(true);
-                idxDica[i].setSize(30, 30);
-                idxDica[i].setToolTipText(palavras[i][0]);
-                this.add(idxDica[i]);
+                idDica[i] = new JLabel();
+                idDica[i].setLocation((40*distCentro)-29, 10);
+                idDica[i].setText("DICA");
+                idDica[i].setFont(new Font("Courier New", Font.ITALIC, 12));
+                idDica[i].setVisible(true);
+                idDica[i].setSize(45, 30);
+                idDica[i].setToolTipText(palavras[i][0]);
+                this.add(idDica[i]);
             }
             else
             {
-                idxDica[i] = new JLabel();
-                idxDica[i].setLocation(((qntEsq[i-1]+1)*40), 40*i);
-                idxDica[i].setText(Integer.toString(i));
-                idxDica[i].setVisible(true);
-                idxDica[i].setSize(30, 30);
-                idxDica[i].setToolTipText(palavras[i][0]);
-                this.add(idxDica[i]);
+                idDica[i] = new JLabel();
+                idDica[i].setLocation(((qntEsq[i-1]+1)*40)-25, (40*i)+2);
+                idDica[i].setText("DICA");
+                idDica[i].setFont(new Font("Courier New", Font.ITALIC, 12));
+                idDica[i].setVisible(true);
+                idDica[i].setSize(30, 30);
+                idDica[i].setToolTipText(palavras[i][0]);
+                this.add(idDica[i]);
             }
         }
         
@@ -78,6 +93,14 @@ public class InterfaceGrafica extends javax.swing.JFrame {
                 }
     }
 
+    public void setFullScreen()
+    {
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        this.width = screenSize.getWidth();
+        this.height = screenSize.getHeight();
+        this.setSize((int)(long)Math.floor(width), (int)(long)Math.floor(height));
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -88,22 +111,22 @@ public class InterfaceGrafica extends javax.swing.JFrame {
     private void initComponents() {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(1000, 500));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 700, Short.MAX_VALUE)
+            .addGap(0, 1200, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGap(0, 700, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    
     /**
      * @param args the command line arguments
      */
@@ -121,20 +144,21 @@ public class InterfaceGrafica extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(InterfaceGrafica.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GUI_Partida.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(InterfaceGrafica.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GUI_Partida.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(InterfaceGrafica.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GUI_Partida.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(InterfaceGrafica.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GUI_Partida.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new InterfaceGrafica().setVisible(true);
+                new GUI_Partida().setVisible(true);
             }
         });
     }

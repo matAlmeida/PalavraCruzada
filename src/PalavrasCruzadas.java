@@ -69,14 +69,6 @@ public class PalavrasCruzadas {
             }
             
         }
-//        
-//        for(int i = 0; i < altura; i++)
-//        {
-//            for(int j = 0; j < largura; j++)
-//                System.out.print(palavrasCruzadas[i][j]);
-//            
-//            System.out.print("\n");
-//        }
     }
     
     public int getAltura()
