@@ -41,6 +41,20 @@ public class GUI_Partida extends javax.swing.JFrame {
         setFullScreen();
         this.setTitle("Partida");
         
+        createBlocks();
+        
+    }
+
+    public void setFullScreen()
+    {
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        this.width = screenSize.getWidth();
+        this.height = screenSize.getHeight();
+        this.setSize((int)(long)Math.floor(width), (int)(long)Math.floor(height));
+    }
+    
+    public void createBlocks()
+    {
         PalavrasCruzadas cWords = new PalavrasCruzadas();
         this.cWordsM = cWords.getCruzada();
         this.palavras = cWords.getPalavras();
@@ -91,14 +105,6 @@ public class GUI_Partida extends javax.swing.JFrame {
                     campo[i][j].setSize(30, 30);
                     this.add(campo[i][j]);
                 }
-    }
-
-    public void setFullScreen()
-    {
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        this.width = screenSize.getWidth();
-        this.height = screenSize.getHeight();
-        this.setSize((int)(long)Math.floor(width), (int)(long)Math.floor(height));
     }
     
     /**
