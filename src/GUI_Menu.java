@@ -1,7 +1,6 @@
 
 import java.awt.Color;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -10,23 +9,16 @@ import javax.swing.JTextField;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /**
  *
  * @author mat
  */
 public class GUI_Menu extends javax.swing.JFrame {
-
-    /**
-     * Creates new form GUI_Menu
-     */
     
     JRadioButton[] tipo;
+    ButtonGroup gTipo;
+    JRadioButton[] dif;
+    ButtonGroup gLvl;
     JTextField[] nomeJ;
     JButton novoJogo;
     
@@ -34,8 +26,9 @@ public class GUI_Menu extends javax.swing.JFrame {
         initComponents();
         this.setTitle("Palavras Cruzadas");
         
-        setType();
-        setName();
+        setTipoJogo();
+        setDificuldade();
+        getNomeJogador();
         
         novoJogo = new JButton("Novo Jogo");
         novoJogo.setLocation(300, 100);
@@ -49,27 +42,41 @@ public class GUI_Menu extends javax.swing.JFrame {
         novoJogo.addActionListener(new java.awt.event.ActionListener() {
             @Override
             public void actionPerformed(java.awt.event.ActionEvent e) {
-                startGame();
+                newGame();
             }
         });
         
     }
 
-    private void startGame()
+    private void newGame()
     {
         if(tipo[0].isSelected())
         {
-            GUI_Partida partida = new GUI_Partida(nomeJ[0].getText(), nomeJ[1].getText());
+            GUI_Partida partida = new GUI_Partida(nomeJ[0].getText(), nomeJ[1].getText(), 0);
             partida.setVisible(true);
+            
         }
         if(tipo[1].isSelected())
         {
-            GUI_Partida partida = new GUI_Partida(nomeJ[0].getText(), nomeJ[1].getText());
+            if(dif[0].isSelected())
+            {
+            GUI_Partida partida = new GUI_Partida(nomeJ[0].getText(), nomeJ[1].getText(), 1);
             partida.setVisible(true);
+            }
+            else if(dif[1].isSelected())
+            {
+            GUI_Partida partida = new GUI_Partida(nomeJ[0].getText(), nomeJ[1].getText(), 2);
+            partida.setVisible(true);
+            }
+            else if(dif[2].isSelected())
+            {
+            GUI_Partida partida = new GUI_Partida(nomeJ[0].getText(), nomeJ[1].getText(), 3);
+            partida.setVisible(true);
+            }
         }
     }
     
-    private void setName()
+    private void getNomeJogador()
     {
         JLabel jogador1 = new JLabel("Jogador 1");
         JLabel jogador2 = new JLabel("Jogador 2");
@@ -122,7 +129,56 @@ public class GUI_Menu extends javax.swing.JFrame {
         });
     }
     
-    private void setType()
+    private void setDificuldade()
+    {
+        JLabel txtIzi = new JLabel("Facíl");
+        JLabel txtMedio = new JLabel("Medio");
+        JLabel txtHard = new JLabel("Difícil");
+        
+        dif = new JRadioButton[3];
+        
+        txtIzi.setVisible(true);
+        txtIzi.setLocation(490, 10);
+        txtIzi.setSize(150, 30);
+        this.add(txtIzi);
+        
+        dif[0] = new JRadioButton();
+        dif[0].setLocation(470, 10);
+        dif[0].setSize(30, 30);
+        dif[0].setSelected(true);
+        dif[0].setVisible(true);
+        this.add(dif[0]);
+        
+        txtMedio.setVisible(true);
+        txtMedio.setLocation(490, 50);
+        txtMedio.setSize(150, 30);
+        this.add(txtMedio);
+        
+        dif[1] = new JRadioButton();
+        dif[1].setLocation(470, 50);
+        dif[1].setSize(30, 30);
+        dif[1].setVisible(true);
+        this.add(dif[1]);
+        
+        txtHard.setVisible(true);
+        txtHard.setLocation(490, 90);
+        txtHard.setSize(150, 30);
+        this.add(txtHard);
+        
+        dif[2] = new JRadioButton();
+        dif[2].setLocation(470, 90);
+        dif[2].setSize(30, 30);
+        dif[2].setVisible(true);
+        this.add(dif[2]);
+        
+        gLvl = new ButtonGroup();
+        gLvl.add(dif[0]);
+        gLvl.add(dif[1]);
+        gLvl.add(dif[2]);
+        
+    }
+    
+    private void setTipoJogo()
     {
         JLabel txtTipo1 = new JLabel("Contra Jogador");
         JLabel txtTipo2 = new JLabel("Contra Computador");
@@ -152,7 +208,7 @@ public class GUI_Menu extends javax.swing.JFrame {
         tipo[1].setVisible(true);
         this.add(tipo[1]);
         
-        ButtonGroup gTipo = new ButtonGroup();
+        gTipo = new ButtonGroup();
         gTipo.add(tipo[0]);
         gTipo.add(tipo[1]);
         
@@ -194,7 +250,7 @@ public class GUI_Menu extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 500, Short.MAX_VALUE)
+            .addGap(0, 545, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
