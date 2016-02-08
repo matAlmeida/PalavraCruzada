@@ -84,10 +84,10 @@ public class Palavras {
      * Sorteia a palavra que contenha tal letra
      * 
      * NO VETOR DE STRING palavra[]:
-     *      [0] --> Corresponde a dica
-     *      [1] --> Corresponde a palavra
-     *      [2] --> Corresponde ao index da letra que corresponde a palavra tronco
-     *      [3] --> Corresponde ao index da palavra tronco que corresponde a letra
+     *      [0] -- Corresponde a dica
+     *      [1] -- Corresponde a palavra
+     *      [2] -- Corresponde ao index da letra que corresponde a palavra tronco
+     *      [3] -- Corresponde ao index da palavra tronco que corresponde a letra
      * 
      * @param letra
      * @param compara
@@ -125,7 +125,7 @@ public class Palavras {
     /**
      * 
      * NA MATRIZ DE STRING palavrasHor[][]
-     *      [0][i] --> Corresponde a palavra tronco
+     *      [0][i] -- Corresponde a palavra tronco
      * 
      * @param palavraChave
      * @return 

@@ -19,6 +19,7 @@ public class PalavrasCruzadas {
     private int distCentro;
     private String[][] palavras;
     private int[] qntEsq;
+    private int letrasjogaveis = 0;
     
     public PalavrasCruzadas()
     {
@@ -67,7 +68,10 @@ public class PalavrasCruzadas {
                 else if(j > qntEsq[i] + letras.length)
                     palavrasCruzadas[i][j] = '0';
                 else
+                {
                     palavrasCruzadas[i][j] = letras[j-qntEsq[i]-1];
+                    letrasjogaveis++;
+                }
                 
             }
             
@@ -102,6 +106,11 @@ public class PalavrasCruzadas {
     public int[] getQntEsq()
     {
         return qntEsq;
+    }
+    
+    public int getLetrasJogaveis()
+    {
+        return letrasjogaveis;
     }
     
     public boolean confere(String[] coord, String c)

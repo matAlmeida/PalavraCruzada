@@ -11,7 +11,7 @@ import java.util.Random;
  *
  * @author mat
  */
-public class Computador {
+public class Computador{
     
     char[] alfabeto;
     Random seed;
