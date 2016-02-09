@@ -135,7 +135,7 @@ public class GUI_Partida extends javax.swing.JFrame {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                int confirma = JOptionPane.showConfirmDialog(rootPane, "Realmente deseja sair da partida?", "Nova partida", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+                int confirma = JOptionPane.showConfirmDialog(rootPane, "Partida em andamento sera perdida!!", "Nova partida", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
                 if(confirma == JOptionPane.YES_OPTION)
                     newGame(player1, player2);
             }
@@ -255,6 +255,7 @@ public class GUI_Partida extends javax.swing.JFrame {
                     campo[i][j].setSize(30, 30);
                     campo[i][j].setName(i + ":" + j);
                     campo[i][j].setDocument(new JTextFieldLimit(1));
+                    campo[i][j].setFocusTraversalKeysEnabled(false);
                     this.add(campo[i][j]);
                     
                     //campo[i][j].getDocument().addDocumentListener(checa(campo[i][j]));
@@ -307,11 +308,21 @@ public class GUI_Partida extends javax.swing.JFrame {
             {
                     if(pontos[0] > pontos[1])
                     {
-                        JOptionPane.showMessageDialog(rootPane, "Fim da Partida\n" + players[0].getText() + " Ganhou!!");
+                        String textCampeao = "O jogador " + players[0].getText() + " ganhou a partida\nDeseja continuar jogando?";
+                        
+                        int confirma = JOptionPane.showConfirmDialog(rootPane, textCampeao, "Fim da Partida", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+                        if(confirma == JOptionPane.YES_OPTION)
+                            newGame(players[0].getText(), players[1].getText());
+                        //JOptionPane.showMessageDialog(rootPane, "Fim da Partida\n" + players[0].getText() + " Ganhou!!");
                     }
                     else if(pontos[1] > pontos[0])
                     {
-                        JOptionPane.showMessageDialog(rootPane, "Fim da Partida\n" + players[1].getText() + " Ganhou!!");
+                        String textCampeao = "O jogador " + players[1].getText() + " ganhou a partida\nDeseja continuar jogando?";
+                        
+                        int confirma = JOptionPane.showConfirmDialog(rootPane, textCampeao, "Fim da Partida", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+                        if(confirma == JOptionPane.YES_OPTION)
+                            newGame(players[0].getText(), players[1].getText());
+                        //JOptionPane.showMessageDialog(rootPane, "Fim da Partida\n" + players[1].getText() + " Ganhou!!");
                     }
                     else if (pontos[0] == pontos[1])
                     {
@@ -430,7 +441,7 @@ public class GUI_Partida extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

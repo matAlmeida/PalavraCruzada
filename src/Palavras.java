@@ -17,7 +17,7 @@ import java.util.logging.Logger;
  * @author mat
  */
 public class Palavras {
-    private static final String nomeArq = "dicionarioPalCruz.txt";
+    private static final String nomeArq = "files/dicionarioPalCruz.txt";
     private int tamArq = 0;
     private String[] linha = null;
     

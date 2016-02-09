@@ -1,0 +1,52 @@
+INSTRUÇÕES PALAVRAS CRUZADAS 4000 - Ano 2016
+Criado por: Matheus Almeida Santos Anjos
+Projeto da materia: Linguagem de Programação 3
+Professora: Marta Magda Dornelles
+Projeto disponivel no link
+	 https://github.com/matAlmeida/PalavraCruzada
+
+------------------------------------------------------------------------------------------------------------
+
+Ao Clicar em NOVO JOGO o MENU DE JOGO será aberto
+
+No MENU DE JOGO você pode escolher jogar contra outro 
+jogador ou contra a maquina, que está disponivel em 3
+(três) dificuldades diferente, FACÍL, MEDIO E DIFÍCIL.
+
+As palavras estão dispostas de forma que a unica palavra
+na vertical é a palavra tronco, localizada abaixo do unico
+texto "DICA" localizado por cima das caixas de texto, e na
+horizontal estão dispostas "n" palavras, "n" sendo a quantidade
+de letras da palavra tronco, uma embaixo da outra sem nenhuma
+ligação.
+
+Cada jogador, ou computador, joga uma letra ,caso acerte esse
+continua jogando ate errar e o turno passa para o proximo
+jogador. Por motivos tecnicos quando se está jogando contra
+o computador o turno dele ocorre instantaneamente e continua
+ate ele errar a letra jogada.
+
+Os pontos são contabilizados para o jogador que consiga escrever
+a ultima letra da palavra corretamente, não importando que tenha
+sido a unica letra acertada pelo jogador.
+
+Ao fim da partida, caso termine empatado, automaticamente se 
+inicia uma nova partida, mantendo-se os pontos da partida
+anterior. Caso algum dos jogadores ganhe é dada a opção de iniciar
+uma nova partida ou de terminar a partida.
+
+------------------------------------------------------------------------------------------------------------
+
+Contra outro jogador, o jogador nmr 1(um) sempre começa
+a primeira partida, e as partidas decorrentes serão 
+iniciadas por quem acertou a ultima letra na partida anterior.
+
+Cada jogador joga uma letra em uma caixa de texto de acordo
+com a dica que esta disponivel colocando o mouse por cima da
+palavra "DICA" à esquerda da palavra
+
+------------------------------------------------------------------------------------------------------------
+
+Contra o computador o jogo decorre do mesmo jeito, com o jogador
+nmr 1 iniciando a primeira partida, e as proximas partidas pelo 
+jogador que acertou a ultima letra da partida anterior.
