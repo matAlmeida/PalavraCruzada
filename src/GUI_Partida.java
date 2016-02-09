@@ -313,7 +313,6 @@ public class GUI_Partida extends javax.swing.JFrame {
                         int confirma = JOptionPane.showConfirmDialog(rootPane, textCampeao, "Fim da Partida", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
                         if(confirma == JOptionPane.YES_OPTION)
                             newGame(players[0].getText(), players[1].getText());
-                        //JOptionPane.showMessageDialog(rootPane, "Fim da Partida\n" + players[0].getText() + " Ganhou!!");
                     }
                     else if(pontos[1] > pontos[0])
                     {
@@ -322,11 +321,12 @@ public class GUI_Partida extends javax.swing.JFrame {
                         int confirma = JOptionPane.showConfirmDialog(rootPane, textCampeao, "Fim da Partida", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
                         if(confirma == JOptionPane.YES_OPTION)
                             newGame(players[0].getText(), players[1].getText());
-                        //JOptionPane.showMessageDialog(rootPane, "Fim da Partida\n" + players[1].getText() + " Ganhou!!");
                     }
                     else if (pontos[0] == pontos[1])
                     {
-                        JOptionPane.showMessageDialog(rootPane, "Fim da Partida\n" + "Jogo empatado");
+                        int confirma = JOptionPane.showConfirmDialog(rootPane, "Jogo empatado\n" + "Uma nova partida será iniciada!", "Fim da Partida", JOptionPane.OK_OPTION, JOptionPane.QUESTION_MESSAGE);
+                        if(confirma == JOptionPane.OK_OPTION)
+                            newGame(players[0].getText(), players[1].getText());
                     }
                 
             }
