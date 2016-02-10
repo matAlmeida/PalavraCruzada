@@ -12,6 +12,10 @@ import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.PlainDocument;
 
+/**
+ * Limita a quantidade de letras digitadas no JTextField
+ * @author mat
+ */
 public class JTextFieldLimit extends PlainDocument {
     private int limit;
 

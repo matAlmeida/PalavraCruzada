@@ -1,18 +1,19 @@
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -29,51 +30,60 @@ public class GUI_Partida extends javax.swing.JFrame {
     /**
      * Creates new form InterfaceGrafica
      */
-    Jogador[] jogador1 = new Jogador[2];
-    Computador computador;
-    int jogando = 0;
-    int njogando = 1;
-    int compjogando = 0;
-    int tcompjogando = 0;
-    int tipoPartida;
-    JLabel turn[] = new JLabel[2];
-    ImageIcon turnIcn;
-    BDJogadores bdP;
+    private Jogador[] jogador1 = new Jogador[2];
+    private Computador computador;
+    private int jogando = 0;
+    private int njogando = 1;
+    private int compjogando = 0;
+    private int tcompjogando = 0;
+    private int tipoPartida;
+    private JLabel turn[] = new JLabel[2];
+    private ImageIcon turnIcn;
+    private BDJogadores bdP;
     
-    JButton novoJogo;
+    private JButton novoJogo;
     
-    PalavrasCruzadas cWords;
-    char[][] cWordsM;
-    String[][] palavras;
-    int letrasJogaveis;
-    int letrasJogadas = 0;
+    private PalavrasCruzadas cWords;
+    private char[][] cWordsM;
+    private String[][] palavras;
+    private int letrasJogaveis;
+    private int letrasJogadas = 0;
     
-    JTextField[][] campo; // Campo de quadrados
-    JLabel[] idDica;
-    JLabel[] lbDicas;
+    private JTextField[][] campo; // Campo de quadrados
+    private JLabel[] idDica;
+    private JLabel[] lbDicas;
     
-    int [] letrasP;
-    int [] pontos = new int[2];
-    JLabel[] jPontos = new JLabel[2];
-    JLabel[] players = new JLabel[2];
-    JLabel table;
-    ImageIcon bgTable;
+    private int [] letrasP;
+    private int [] pontos = new int[2];
+    private JLabel[] jPontos = new JLabel[2];
+    private JLabel[] players = new JLabel[2];
+    private JLabel table;
+    private ImageIcon bgTable;
     
     /**
      * Constroi a tela da primeira Partida
      * 
-     * @param player1 - Nome do Jogador 1
-     * @param player2 - Nome do Jogador 2
-     * @param tipoJ   - Tipo de partida a ser jogado <\br>
-     *                - [0] Jogador vs Jogador <\br>
-     *                - [1] Jogador vs Computador Facil <\br>
-     *                - [2] Jogador vs Computador Medio <\br>
-     *                - [3] Jogador vs Computador Dificil <\br>
+     * @param player1 Nome do Jogador 1
+     * @param player2 Nome do Jogador 2
+     * @param tipoJ   Tipo de partida a ser jogado <br>
+     *                [0] Jogador vs Jogador <br>
+     *                [1] Jogador vs Computador Facil <br>
+     *                [2] Jogador vs Computador Medio <br>
+     *                [3] Jogador vs Computador Dificil <br>
      */
     public GUI_Partida(String player1, String player2, int tipoJ) {
         initComponents();
-        bgTable = new ImageIcon("img/fundoTabela.jpg");
-        turnIcn = new ImageIcon("img/turn.png");
+        Image imgbg = null;
+        Image imgt = null;
+
+        try {
+            imgbg = ImageIO.read(getClass().getResource("img/fundoTabela.png"));
+            imgt = ImageIO.read(getClass().getResource("img/turn.png"));
+        } catch (IOException ex) {
+            Logger.getLogger(GUI_MenuPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        bgTable = new ImageIcon(imgbg);
+        turnIcn = new ImageIcon(imgt);
         table = new JLabel();
         
         this.tipoPartida = tipoJ;
@@ -100,6 +110,7 @@ public class GUI_Partida extends javax.swing.JFrame {
         
         players[0].setSize(300, 30);
         players[0].setFont(new Font("Courier New", Font.BOLD, 30));
+        players[0].setForeground(Color.white);
         players[0].setVisible(true);
         
         jPontos[0].setSize(300, 30);
@@ -112,6 +123,7 @@ public class GUI_Partida extends javax.swing.JFrame {
         
         jPontos[1].setSize(300, 30);
         jPontos[1].setFont(new Font("Courier New", Font.BOLD, 30));
+        jPontos[1].setForeground(Color.white);
         jPontos[1].setVisible(true);
         
         table.setIcon(bgTable);
@@ -146,8 +158,8 @@ public class GUI_Partida extends javax.swing.JFrame {
     
     /**
      * 
-     * @param player1
-     * @param player2 
+     * @param player1 Nome do jogador 1
+     * @param player2 Nome do jogador 2
      */
     private void newGame(String player1, String player2)
     {
@@ -192,6 +204,13 @@ public class GUI_Partida extends javax.swing.JFrame {
         
     }
     
+    /**
+     * Coloca a tabela de pontuação na tela
+     * 
+     * @param player1 Nome jogador 1
+     * @param player2 Nome jogador 2
+     * @param altura Distancia do topo da tela que a tebela será localizada
+     */
     private void createTable(String player1, String player2, int altura)
     {
         
@@ -206,6 +225,9 @@ public class GUI_Partida extends javax.swing.JFrame {
         table.setLocation(10, altura + 7);
     }
     
+    /**
+     * Muda o turno, visualmente, da jogada
+     */
     private void setTurno()
     {
         
@@ -220,6 +242,11 @@ public class GUI_Partida extends javax.swing.JFrame {
         }
     }
     
+    /**
+     * Adiciona ponto pra o jogador na Tabela e caso não seja o computador adiciona tambem ao Jogador
+     * 
+     * @param jogador Index do jogador
+     */
     private void setPontos(int jogador)
     {
         if(jogando == 0)
@@ -228,6 +255,9 @@ public class GUI_Partida extends javax.swing.JFrame {
         jPontos[jogador].setText(String.valueOf(pontos[jogador]));
     }
 
+    /**
+     * Muda o tamanho da tela do jogo de acordo com a quantidade de palavras sendo jogada
+     */
     private void setScreenSize()
     {
         int largura = cWords.getLargura()*60;
@@ -239,6 +269,12 @@ public class GUI_Partida extends javax.swing.JFrame {
         this.setSize(largura, altura);
     }
     
+    /**
+     * Cria as areas jogaveis da partida
+     * 
+     * @param altura Altura da matriz de Palavras Cruzadas
+     * @param largura Largura da matriz de Palavras Cruzadas
+     */
     private void createTextBoxArea(int altura, int largura)
     {
         campo = new JTextField[altura][largura];
@@ -264,6 +300,12 @@ public class GUI_Partida extends javax.swing.JFrame {
                 }
     }
     
+    /**
+     * Faz a jogada do computador
+     * 
+     * @param i Index da palavra a ser jogada
+     * @param j Index da Area de Texto a ser jogada
+     */
     private void jogadaComp(int i, int j)
     {
         String jogar = palavras[i + 1][1];
@@ -272,6 +314,11 @@ public class GUI_Partida extends javax.swing.JFrame {
         jogar(campo[i][j]);
     }
     
+    /**
+     * Ação quando uma nova letra é digitada num campo de texto
+     * 
+     * @param campoJ Campo de texto jogado
+     */
     private void jogar(JTextField campoJ)
     {
         int i = Integer.parseInt(campoJ.getName().split(":")[0]);
@@ -285,7 +332,7 @@ public class GUI_Partida extends javax.swing.JFrame {
             if(letrasP[0] == 0)
             {
                 setPontos(jogando);
-                letrasP[0]++;
+                letrasP[0] += palavras[0][1].length() +1;
             }
             if(letrasP[i+1] == 0)
                 setPontos(jogando);
@@ -344,6 +391,10 @@ public class GUI_Partida extends javax.swing.JFrame {
         }
     }
     
+    /**
+     * 
+     * @return Ação que deve acontecer quando uma letra for digitada
+     */
     private KeyListener checaK()
     {
          KeyListener key = new java.awt.event.KeyAdapter() {
@@ -396,6 +447,11 @@ public class GUI_Partida extends javax.swing.JFrame {
 //        return doc;
 //    }
     
+    /**
+     * Coloca as Jlabels com as dicas, disponiveis em forma de ToolTipsText
+     * @param altura Altura da matriz de Palavras Cruzadas
+     * @param largura Largura da matriz de Palavras Cruzadas
+     */
     private void createTips(int altura, int largura)
     {
         int distCentro = cWords.getDistCentro()+1;
@@ -411,7 +467,7 @@ public class GUI_Partida extends javax.swing.JFrame {
             {
                 idDica[i] = new JLabel();
                 idDica[i].setLocation((40*distCentro)-29, 10);
-                idDica[i].setText("DICA");
+                idDica[i].setText("DICA\n↓");
                 idDica[i].setFont(new Font("Courier New", Font.ITALIC, 12));
                 idDica[i].setVisible(true);
                 idDica[i].setSize(45, 30);
@@ -422,10 +478,10 @@ public class GUI_Partida extends javax.swing.JFrame {
             {
                 idDica[i] = new JLabel();
                 idDica[i].setLocation(((qntEsq[i-1]+1)*40)-25, (40*i)+2);
-                idDica[i].setText("DICA");
+                idDica[i].setText("DICA→");
                 idDica[i].setFont(new Font("Courier New", Font.ITALIC, 12));
                 idDica[i].setVisible(true);
-                idDica[i].setSize(30, 30);
+                idDica[i].setSize(45, 30);
                 idDica[i].setToolTipText(palavras[i][0]);
                 this.add(idDica[i]);
             }
@@ -442,6 +498,7 @@ public class GUI_Partida extends javax.swing.JFrame {
     private void initComponents() {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setAlwaysOnTop(true);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

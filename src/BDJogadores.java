@@ -9,6 +9,9 @@ public class BDJogadores {
     private ArrayList <Jogador> bancoJogadores;
     private int[] indexMelhores = new int[4];
     
+    /**
+     * Inicializa Banco de dados
+     */
     public BDJogadores()
     {
         indexMelhores[0] = 0;
@@ -17,11 +20,21 @@ public class BDJogadores {
         bancoJogadores = new ArrayList<>();
     }
     
-    public void addJogador(Jogador jogador, int tipo)
+    /**
+     * Adiciona jogador ao banco de dados
+     * 
+     * @param jogador Jogador 
+     */
+    public void addJogador(Jogador jogador)
     {            
         bancoJogadores.add(jogador);
     }
     
+    /**
+     * 
+     * @param tipo Tipo de partida
+     * @return Melhor jogador em dado tipo de partida
+     */
     public Jogador getMelhor(int tipo)
     {
         int melhor = 0;

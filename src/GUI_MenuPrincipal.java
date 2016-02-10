@@ -1,4 +1,5 @@
 
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyListener;
@@ -6,12 +7,15 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
@@ -43,12 +47,15 @@ public class GUI_MenuPrincipal extends javax.swing.JFrame {
         
     }
     
+    /**
+     * Cria janela de instruções
+     */
     private void janela2()
     {
         menu2 = new JFrame();
         menu2.setSize(652, 448);
         menu2.setLocation(0, 0);
-        menu2.setTitle("PALAVRAS CRUZADAS 4000 - Instruções");
+        menu2.setTitle("Cruzadas Palavras - Instruções");
         menu2.setVisible(true);
         menu2.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         
@@ -64,12 +71,15 @@ public class GUI_MenuPrincipal extends javax.swing.JFrame {
         menu2.add(instS);
     }
     
+    /**
+     * Cria o menu principal
+     */
     private void janela1()
     {
         menu1 = new JFrame();
         menu1.setSize(652, 448);
         menu1.setLocation(0, 0);
-        menu1.setTitle("PALAVRAS CRUZADAS 4000 - Menu Principal");
+        menu1.setTitle("Cruzadas Palavras - Menu Principal");
         menu1.setVisible(true);
         menu1.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         
@@ -87,7 +97,13 @@ public class GUI_MenuPrincipal extends javax.swing.JFrame {
         help.addActionListener(abrirInst());
         menu1.add(help);
         
-        ImageIcon bg = new ImageIcon("img/bgPrincipal.jpg");
+        Image img = null;
+        try {
+            img = ImageIO.read(getClass().getResource("img/bgPrincipal3.png"));
+        } catch (IOException ex) {
+            Logger.getLogger(GUI_MenuPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        ImageIcon bg = new ImageIcon(img);
         bgMenu1 = new JLabel();
         bgMenu1.setSize(652, 448);
         bgMenu1.setLocation(0, 0);
@@ -96,6 +112,10 @@ public class GUI_MenuPrincipal extends javax.swing.JFrame {
         menu1.add(bgMenu1);
     }
     
+    /**
+     * 
+     * @return Ação quando o botão Novo Jogo for pressionado
+     */
     private ActionListener novoJogo()
     {
         ActionListener nG = new ActionListener() {
@@ -111,6 +131,10 @@ public class GUI_MenuPrincipal extends javax.swing.JFrame {
         return nG;
     }
     
+    /**
+     * 
+     * @return Ação quando o botão Instruções for pressionado
+     */
     private ActionListener abrirInst()
     {
         ActionListener nG = new ActionListener() {
@@ -125,21 +149,41 @@ public class GUI_MenuPrincipal extends javax.swing.JFrame {
         return nG;
     }
     
+    /**
+     * 
+     * @return String com as linhas do txt de Intruções
+     */
     private String textInst()
     {
+        //String road = String.valueOf(this.getClass().getResource("files/instrucoes.txt")).split(":")[1];
+        
+        String caminho = "";
+        try {
+            caminho = this.getClass().getProtectionDomain().getCodeSource().getLocation().toURI().getPath();
+            caminho = caminho.substring(1, caminho.lastIndexOf('/') + 1);
+            caminho =  "/"+ caminho + "files/instrucoes.txt";
+	} catch (URISyntaxException ex) {
+            Logger.getLogger(GUI_MenuPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
         String texto = "";
         FileReader instrucoes;
         BufferedReader buffer;
         try {
-            instrucoes = new FileReader("files/instrucoes.txt");
+            instrucoes = new FileReader(caminho);
             buffer = new BufferedReader(instrucoes);
             
             for(int i = 0; i < 51; i++)
-            texto += buffer.readLine() + "\n";
+                texto += buffer.readLine() + "\n";
+            
+            buffer.close();
+            instrucoes.close();
             
         } catch (FileNotFoundException ex) {
+            JOptionPane.showMessageDialog(rootPane, ex);
             Logger.getLogger(GUI_MenuPrincipal.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
+            JOptionPane.showMessageDialog(rootPane, ex);
             Logger.getLogger(GUI_MenuPrincipal.class.getName()).log(Level.SEVERE, null, ex);
         }
         

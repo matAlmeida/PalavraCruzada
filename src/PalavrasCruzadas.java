@@ -21,6 +21,9 @@ public class PalavrasCruzadas {
     private int[] qntEsq;
     private int letrasjogaveis = 0;
     
+    /**
+     * Cria Matriz de caracteres com as palavras sorteadas, com '0' nos espaços vazios
+     */
     public PalavrasCruzadas()
     {
         
@@ -78,41 +81,76 @@ public class PalavrasCruzadas {
         }
     }
     
+    /**
+     * 
+     * @return Altura da Matriz(Tamanho da palavra Tronco)
+     */
     public int getAltura()
     {
         return altura;
     }
     
+    /**
+     * 
+     * @return Largura da Matriz
+     */
     public int getLargura()
     {
         return largura;
     }
     
+    /**
+     * 
+     * @return Matriz ja cruzada
+     */
     public char[][] getCruzada()
     {
         return palavrasCruzadas;
     }
     
+    /**
+     * 
+     * @return Dicas, Palavras, Index na palavra Tronco
+     */
     public String[][] getPalavras()
     {
         return palavras;
     }
     
+    /**
+     * 
+     * @return Distancia da palavra tronco da lateral esquerda da matriz
+     */
     public int getDistCentro()
     {
         return distCentro;
     }
     
+    /**
+     * 
+     * @return Distancia da palavra para a lateral esquerda<br>
+     *         [i] Palavras sorteadas excluindo a Palavra Tronco
+     */
     public int[] getQntEsq()
     {
         return qntEsq;
     }
     
+    /**
+     * 
+     * @return Quantidade Total de letras Jogaveis na matriz
+     */
     public int getLetrasJogaveis()
     {
         return letrasjogaveis;
     }
     
+    /**
+     * 
+     * @param coord Indices da matriz que será comparado com "c"
+     * @param c Letra a ser comparada com a Matriz
+     * @return Caso a letra estejá contida no Indice indicado, retorna TRUE
+     */
     public boolean confere(String[] coord, String c)
     {
         int i = Integer.parseInt(coord[0]);

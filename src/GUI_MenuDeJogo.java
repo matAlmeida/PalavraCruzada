@@ -15,13 +15,16 @@ import javax.swing.event.DocumentListener;
  */
 public class GUI_MenuDeJogo extends javax.swing.JFrame {
     
-    JRadioButton[] tipo;
-    ButtonGroup gTipo;
-    JRadioButton[] dif;
-    ButtonGroup gLvl;
-    JTextField[] nomeJ;
-    JButton novoJogo;
+    private JRadioButton[] tipo;
+    private ButtonGroup gTipo;
+    private JRadioButton[] dif;
+    private ButtonGroup gLvl;
+    private JTextField[] nomeJ;
+    private JButton novoJogo;
     
+    /**
+     * Cria o menu com as opções da partida
+     */
     public GUI_MenuDeJogo() {
         initComponents();
         this.setTitle("Palavras Cruzadas");
@@ -48,6 +51,9 @@ public class GUI_MenuDeJogo extends javax.swing.JFrame {
         
     }
 
+    /**
+     * Ações que devem acontecer quando o botão novo jogo é pressionado
+     */
     private void newGame()
     {
         if(tipo[0].isSelected())
@@ -76,6 +82,9 @@ public class GUI_MenuDeJogo extends javax.swing.JFrame {
         }
     }
     
+    /**
+     * Recolhe os nomes dos jogadores que participarão da partida
+     */
     private void getNomeJogador()
     {
         JLabel jogador1 = new JLabel("Jogador 1");
@@ -129,6 +138,9 @@ public class GUI_MenuDeJogo extends javax.swing.JFrame {
         });
     }
     
+    /**
+     * Caso contra o computador recebe a dificuldade
+     */
     private void setDificuldade()
     {
         JLabel txtIzi = new JLabel("Facíl");
@@ -178,6 +190,9 @@ public class GUI_MenuDeJogo extends javax.swing.JFrame {
         
     }
     
+    /**
+     * Recebe se a partida será contra outra pessoa, ou contra o Computador
+     */
     private void setTipoJogo()
     {
         JLabel txtTipo1 = new JLabel("Contra Jogador");
